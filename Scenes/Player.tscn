@@ -1,0 +1,65 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/cloud/walking2.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/cloud/walking3.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/cloud/walking4.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/cloud/walking5.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/cloud/walking1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/cloud/jump1.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/cloud/jump2.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/cloud/jump3.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/cloud/jump4.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/cloud/jump5.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/cloud/jump6.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "levitate",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 15.9272
+height = 33.6605
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+
+frames = SubResource( 1 )
+animation = "walk"
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 19.549, 0.396042 )
+shape = SubResource( 2 )
+
+

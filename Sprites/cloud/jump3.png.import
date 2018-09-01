@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/walking5.png-7d060c67db83bac39b5a53aed2cd9c14.stex"
+path="res://.import/jump3.png-ff22f56efad98d5d47b630851872318c.stex"
 
 [deps]
 
-source_file="res://Sprites/cloud/walking5.png"
-dest_files=[ "res://.import/walking5.png-7d060c67db83bac39b5a53aed2cd9c14.stex" ]
+source_file="res://Sprites/cloud/jump3.png"
+dest_files=[ "res://.import/jump3.png-ff22f56efad98d5d47b630851872318c.stex" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/landing2.png-c0c2a28122ab83f9905781f1bbe54f8f.stex"
+path="res://.import/flying1.png-eaddef440df89d695c0c238dd9feb981.stex"
 
 [deps]
 
-source_file="res://Sprites/cloud/landing2.png"
-dest_files=[ "res://.import/landing2.png-c0c2a28122ab83f9905781f1bbe54f8f.stex" ]
+source_file="res://Sprites/cloud/flying1.png"
+dest_files=[ "res://.import/flying1.png-eaddef440df89d695c0c238dd9feb981.stex" ]
 
 [params]
 
@@ -25,5 +25,5 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0

@@ -1,20 +1,33 @@
 extends KinematicBody2D
 
+
 const SHADOWPOS = 35
 
 const FRICTION = 0.05
 const SPEED = 120
 const MAXSPEED = 120
-const AIRBONE_MAXSPEED = 170
+const AIRBORNE_MAXSPEED = 170
+const FLIGHT_MAXSPEED = 350
 
-const LANDINGLAG = 10
+const LANDINGLAG = 20
+
+const EDGEOFFSET = 15
 
 const UP = Vector2(0, -1)
-const GRAVITY = 10
-const JUMPHEIGHT = -200
+const GRAVITYDEF = 10
+var GRAVITY = GRAVITYDEF
+const JUMPHEIGHT = -250
 
 const LEVITATEDELAY = 20
-const ATTACK1DELAY = 60
+const ATTACK1DELAY = 45
+const FLIGHTDELAY = 21
+
+
+
+var flying = false
+var flightc = 0
+
+var floorPos = 0
 
 # prevents player from starting levitation accidentally, once its greater than LEVITATEDELAY cloud will float
 var levitateBuffer = 0
@@ -22,7 +35,7 @@ var levitateBuffer = 0
 # How far "up" and "down" the player can go
 const OFFSETLIMITS = Vector2(-30, 30)
 # How far "up" and "down" the player is
-var depthOffset = 15
+var depthOffset = 0
 
 var health = 150
 var maxhealth = 175
@@ -31,7 +44,7 @@ var maxhealth = 175
 var prevDepthOffset = depthOffset
 
 # When the player faces left or right, his sprite needs to be centered via an offsent
-const DIRECTIONOFFSET = 7
+const DIRECTIONOFFSET = -1
 var facingDirectionOffset = DIRECTIONOFFSET
 
 var midair = false
@@ -66,16 +79,33 @@ func turnRight():
 	facingDirectionOffset = DIRECTIONOFFSET
 
 func airtime():
-	if motion.y > 0:
-		anim = "falling"
+	if flying:
+		motion.y = 0
+		
+		GRAVITY = 0
+		if flightc < FLIGHTDELAY and flightc >= 0:
+			anim = "flystart"
+			flightc += 1
+		elif flightc < 0:
+			anim = "flyend"
+		else:
+			anim = "flying"
 	else:
-		anim = "jumping"
-
-	# Linear extrapolation, imitates friction.
+		GRAVITY = GRAVITYDEF
+		if motion.y > 0:
+			anim = "falling"
+		else:
+			anim = "jumping"
+		#if floorPos == 0:
+		#	floorPos = get_transform().origin.y
+			#motion.x += 10
+			
+		# Linear extrapolation, imitates friction.
 	motion.x = lerp(motion.x, 0, FRICTION)
 
 func land():
 	midair = false
+	#floorPos = 0
 	motion.x = 0
 	if landing <= LANDINGLAG:
 		landing += 1
@@ -146,43 +176,76 @@ func _physics_process(delta):
 		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left"):
 			pass
 		elif Input.is_action_pressed("ui_right"):
-			motion.x = min(motion.x + SPEED, AIRBONE_MAXSPEED)
+			if flying:
+				turnRight()
+				motion.x = min(motion.x + SPEED, FLIGHT_MAXSPEED)
+			else:
+				motion.x = min(motion.x + SPEED, AIRBORNE_MAXSPEED)
 		elif Input.is_action_pressed("ui_left"):
-			motion.x = max(motion.x - SPEED, -AIRBONE_MAXSPEED)
+			if flying:
+				turnLeft()
+				motion.x = min(motion.x + SPEED, -FLIGHT_MAXSPEED)
+			else:
+				motion.x = max(motion.x - SPEED, -AIRBORNE_MAXSPEED)
 
 		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_down"):
 			pass
 		elif Input.is_action_pressed("ui_up"):
-			if depthOffset - 1 > OFFSETLIMITS.x:
-				depthOffset -= 1
-				$Shadow.set_offset(Vector2(0, $Shadow.offset.y - 1))
-				anim = "walk"
+			if flying:
+				if depthOffset - 2 > OFFSETLIMITS.x:
+					depthOffset -= 2
+					$Shadow.set_offset(Vector2(0, $Shadow.offset.y - 2))
+			else:
+				if depthOffset - 1 > OFFSETLIMITS.x:
+					depthOffset -= 1
+					$Shadow.set_offset(Vector2(0, $Shadow.offset.y - 1))
+					anim = "walk"
 		elif Input.is_action_pressed("ui_down"):
-			if depthOffset - 1 < OFFSETLIMITS.y:
-				depthOffset += 1
-				$Shadow.set_offset(Vector2(0, $Shadow.offset.y + 1))
-				anim = "walk"
+			if flying:
+				if depthOffset - 2 < OFFSETLIMITS.y:
+					depthOffset += 2
+					$Shadow.set_offset(Vector2(0, $Shadow.offset.y + 2))
+			else:
+				if depthOffset - 1 < OFFSETLIMITS.y:
+					depthOffset += 1
+					$Shadow.set_offset(Vector2(0, $Shadow.offset.y + 1))
+					anim = "walk"
+		
+		if Input.is_action_just_pressed("ui_select"):
+			flightc = 0
+			if flying:
+				flying = false
+				flightc = -1
+			else:
+				flying = true
+				
+		
+		
 		airtime()
 
 
-	if Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_left") and not flying:
 		motion.x = 0
 		if levitateBuffer == LEVITATEDELAY:
-			anim = "levitate"
 			#midair = true
 			if levitatedToTop:
+				#anim = "levitatedown"
 				if motion.y < GRAVITY*20:
-				 	motion.y += GRAVITY*1.5
+					motion.y += GRAVITY*1.5
 				else:
 					levitatedToTop = false
 			elif !levitatedToTop:
+				#anim = "levitateup"
 				if motion.y > GRAVITY*-20:
 					motion.y -= GRAVITY*1.5
 				else:
 					levitatedToTop = true
 		else:
-			if levitateBuffer > 3:
-				anim = "idle"
+			if levitateBuffer > 10:
+				if is_on_floor():
+					anim = "idle"
+				else:
+					anim = "falling"
 			levitateBuffer += 1
 	else:
 		levitateBuffer = 0
@@ -191,10 +254,9 @@ func _physics_process(delta):
 	$AnimatedSprite.set_offset(Vector2(facingDirectionOffset, depthOffset))
 	
 	if midair:
-		#if motion.y > 0:
-		$Shadow.set_offset(Vector2(0, $Shadow.offset.y - motion.y*0.01675))
-		#else:
-		#$Shadow.set_offset(Vector2(0, $Shadow.offset.y - motion.y*0.0156))
+		$Shadow.set_offset(Vector2(0, $Shadow.offset.y - motion.y*0.0168))
+		
+		#$Shadow.set_offset(Vector2(0, floorPos - get_transform().origin.y + depthOffset + SHADOWPOS))
 	else:
 		$Shadow.set_offset(Vector2(0, depthOffset + SHADOWPOS))
 	
@@ -203,15 +265,16 @@ func _physics_process(delta):
 	#print("Levitated to top:")
 	#print(levitatedToTop)
 	#print("Animation:")
-	#print($AnimatedSprite.animation)
+	print($AnimatedSprite.animation)
 	#print("Landing:")
 	#print(landing)
-	print("Shadow:")
-	print($Shadow.offset.y-$AnimatedSprite.offset.y)
-	#print("Animated:")
-	#print($AnimatedSprite.offset)
+	#print("$Shadow.offset.y - ", $Shadow.offset.y - get_transform().origin.y, ", Floorpos - ", floorPos)
 	
 	$AnimatedSprite.play(anim)
 	move_and_slide(motion, UP)
+	if get_transform().origin.x > get_viewport().size.x - EDGEOFFSET:
+		transform.origin.x = get_viewport().size.x - EDGEOFFSET
+	elif get_transform().origin.x < EDGEOFFSET:
+		transform.origin.x = EDGEOFFSET
 	
 	

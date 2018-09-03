@@ -1,26 +1,32 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/shadow.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/cloud/idle2.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/cloud/idle3.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/cloud/landing2.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/cloud/attack1.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/cloud/attack2.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/cloud/attack3.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/cloud/attack4.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/cloud/attack5.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/cloud/attack6.png" type="Texture" id=11]
-[ext_resource path="res://Sprites/cloud/attack7.png" type="Texture" id=12]
-[ext_resource path="res://Sprites/cloud/jump4.png" type="Texture" id=13]
-[ext_resource path="res://Sprites/cloud/jump3.png" type="Texture" id=14]
-[ext_resource path="res://Sprites/cloud/jump1.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/cloud/jump2.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/cloud/walking1.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/cloud/walking2.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/cloud/walking3.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/cloud/walking4.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/cloud/walking5.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/cloud/jump1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/cloud/idle4.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/cloud/jump2.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/cloud/walking1.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/cloud/walking2.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/cloud/walking3.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/cloud/walking4.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/cloud/walking5.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/cloud/attack1.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/cloud/attack2.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/cloud/attack3.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/cloud/attack4.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/cloud/attack5.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/cloud/attack6.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/cloud/attack7.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/cloud/jump3.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/cloud/jump4.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/cloud/flying4.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/cloud/flying5.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/cloud/flying6.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/cloud/flying1.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/cloud/flying2.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/cloud/flying3.png" type="Texture" id=27]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -30,34 +36,44 @@ animations = [ {
 "name": "idle",
 "speed": 2.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
 "name": "landing",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": false,
-"name": "attack1",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "levitate",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 15 ), ExtResource( 16 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": false,
 "name": "jumping",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 13 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "walk",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "attack1",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 21 ) ],
 "loop": false,
 "name": "falling",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ],
 "loop": true,
-"name": "walk",
+"name": "flying",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
+"loop": false,
+"name": "flystart",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 27 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "flyend",
 "speed": 7.0
 } ]
 
@@ -85,8 +101,7 @@ _sections_unfolded = [ "Offset", "Transform", "Visibility" ]
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
 
 frames = SubResource( 1 )
-animation = "levitate"
-playing = true
+animation = "flying"
 flip_h = true
 _sections_unfolded = [ "Transform" ]
 

@@ -17,7 +17,7 @@ size_flags_vertical = 1
 
 [node name="playerHead" type="Sprite" parent="." index="0"]
 
-position = Vector2( 1, 1 )
+position = Vector2( 1, -5 )
 texture = ExtResource( 1 )
 centered = false
 _sections_unfolded = [ "Material", "Offset", "Transform" ]

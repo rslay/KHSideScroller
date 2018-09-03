@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/attack7.png-f87e524b127b527dfc1dfab88f43626e.stex"
+path="res://.import/flying6.png-de1c0b0c698a5753211f5cfd1c66233f.stex"
 
 [deps]
 
-source_file="res://Sprites/cloud/attack7.png"
-dest_files=[ "res://.import/attack7.png-f87e524b127b527dfc1dfab88f43626e.stex" ]
+source_file="res://Sprites/cloud/flying6.png"
+dest_files=[ "res://.import/flying6.png-de1c0b0c698a5753211f5cfd1c66233f.stex" ]
 
 [params]
 

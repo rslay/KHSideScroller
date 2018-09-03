@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cloud1.wav-3783e183c1ca4d3b77cadbf54df8d7ab.sample"
+
+[deps]
+
+source_file="res://SFX/cloud1.wav"
+dest_files=[ "res://.import/cloud1.wav-3783e183c1ca4d3b77cadbf54df8d7ab.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

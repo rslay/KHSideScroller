@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Kingdom Hearts Chain of Memories Music_ Night of Fate (152kbit_Opus).ogg-71255667699491e39eeea46d9325bf31.oggstr"
+
+[deps]
+
+source_file="res://Music/Kingdom Hearts Chain of Memories Music_ Night of Fate (152kbit_Opus).ogg"
+dest_files=[ "res://.import/Kingdom Hearts Chain of Memories Music_ Night of Fate (152kbit_Opus).ogg-71255667699491e39eeea46d9325bf31.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

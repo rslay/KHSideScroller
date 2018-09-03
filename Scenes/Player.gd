@@ -22,6 +22,9 @@ const LEVITATEDELAY = 20
 const ATTACK1DELAY = 45
 const FLIGHTDELAY = 21
 
+const SFX_1 = "res://SFX/cloud1.wav"
+const SFX_2 = "res://SFX/cloud2.wav"
+
 
 
 var flying = false
@@ -58,15 +61,28 @@ var motion = Vector2()
 
 var levitatedToTop = -1
 
+var voiceSFX
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
+	voiceSFX = AudioStreamPlayer.new()
+	self.add_child(voiceSFX)
+	voiceSFX.volume_db = -10
 	pass
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
+
+func playSFX1():
+	voiceSFX.stream = load(SFX_1)
+	voiceSFX.play()
+
+func playSFX2():
+	voiceSFX.stream = load(SFX_2)
+	voiceSFX.play()
 
 func turnLeft():
 	$AnimatedSprite.flip_h = false
@@ -80,7 +96,19 @@ func turnRight():
 
 func airtime():
 	if flying:
-		motion.y = 0
+		if transform.origin.y > 125:
+			if motion.y > 0:
+				motion.y = 0
+			else:
+				motion.y -= 5
+		elif transform.origin.y < 125:
+			if motion.y < 0:
+				motion.y = 0
+			else:
+				motion.y += 5
+		else:
+			motion.y = 0
+		
 		
 		GRAVITY = 0
 		if flightc < FLIGHTDELAY and flightc >= 0:
@@ -119,6 +147,12 @@ func attack1():
 	if attackc <= ATTACK1DELAY:
 		attackc += 1
 		anim = "attack1"
+		if attackc == ATTACK1DELAY/4:
+			randomize()
+			if randf() > 0.5:
+				playSFX2()
+			else:
+				playSFX1()
 	else:
 		attackc = 0
 
@@ -128,6 +162,7 @@ func _physics_process(delta):
 	motion.y += GRAVITY
 	
 	if is_on_floor():
+		flying = false
 		if midair || landing != 0:
 			land()
 		elif attacking || attackc != 0:
@@ -142,6 +177,8 @@ func _physics_process(delta):
 			elif Input.is_action_pressed("ui_left"):
 				motion.x = max(motion.x - SPEED, -MAXSPEED)
 				turnLeft()
+			else:
+				motion.x = 0
 
 			if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_down"):
 				pass
@@ -155,9 +192,6 @@ func _physics_process(delta):
 			# Player is not moving in any direction
 			if !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_up") and !Input.is_action_pressed("ui_down"):
 				anim = "idle"
-				# Linear extrapolation, imitates friction.
-				#motion.x = lerp(motion.x, 0, FRICTION)
-				# Lets just stop the player immediately instead
 				motion.x = 0
 				
 			if Input.is_action_just_pressed("ui_select"):
@@ -260,14 +294,14 @@ func _physics_process(delta):
 	else:
 		$Shadow.set_offset(Vector2(0, depthOffset + SHADOWPOS))
 	
-	#print("Motion:")
-	#print(motion)
+	print("Motion:")
+	print(motion)
 	#print("Levitated to top:")
 	#print(levitatedToTop)
 	#print("Animation:")
-	print($AnimatedSprite.animation)
+	#print($AnimatedSprite.animation)
 	#print("Landing:")
-	#print(landing)
+	print(get_transform().origin.y)
 	#print("$Shadow.offset.y - ", $Shadow.offset.y - get_transform().origin.y, ", Floorpos - ", floorPos)
 	
 	$AnimatedSprite.play(anim)

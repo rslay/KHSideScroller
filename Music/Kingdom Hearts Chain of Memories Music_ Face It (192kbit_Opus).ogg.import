@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Kingdom Hearts Chain of Memories Music_ Face It (192kbit_Opus).ogg-4bbbce0826dc597238f8481159c1c289.oggstr"
+
+[deps]
+
+source_file="res://Music/Kingdom Hearts Chain of Memories Music_ Face It (192kbit_Opus).ogg"
+dest_files=[ "res://.import/Kingdom Hearts Chain of Memories Music_ Face It (192kbit_Opus).ogg-4bbbce0826dc597238f8481159c1c289.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

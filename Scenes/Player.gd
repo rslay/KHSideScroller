@@ -123,7 +123,7 @@ func airtime():
 		if motion.y > 0:
 			anim = "falling"
 		else:
-			anim = "jumping"
+			anim = "jumped"
 		#if floorPos == 0:
 		#	floorPos = get_transform().origin.y
 			#motion.x += 10

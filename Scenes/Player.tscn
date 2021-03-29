@@ -55,30 +55,30 @@ animations = [ {
 "name": "walk",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
-"loop": false,
-"name": "flystart",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 27 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "flyend",
-"speed": 7.0
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "jumped",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 20 ), ExtResource( 21 ) ],
 "loop": false,
 "name": "falling",
 "speed": 7.0
 }, {
+"frames": [ ExtResource( 27 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "flyend",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
+"loop": false,
+"name": "flystart",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": false,
 "name": "jumping",
 "speed": 7.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "jumped",
-"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]

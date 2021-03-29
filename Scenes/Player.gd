@@ -20,6 +20,8 @@ const JUMPHEIGHT = -250
 
 const LEVITATEDELAY = 20
 const ATTACK1DELAY = 45
+const ATTACK1SOUND = 6
+
 const FLIGHTDELAY = 21
 
 const SFX_1 = "res://SFX/cloud1.wav"
@@ -147,7 +149,7 @@ func attack1():
 	if attackc <= ATTACK1DELAY:
 		attackc += 1
 		anim = "attack1"
-		if attackc == ATTACK1DELAY/4:
+		if attackc == ATTACK1SOUND: 
 			randomize()
 			if randf() > 0.5:
 				playSFX2()
